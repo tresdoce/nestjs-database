@@ -41,15 +41,20 @@
   "peerDependencies": {
     "@nestjs/common": "^8.1.2",
     "@nestjs/core": "^8.1.2",
+    "@nestjs/mongoose": "^9.0.1",
     "@nestjs/platform-express": "^8.1.2",
+    "mongoose": "^6.0.13",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.4.0"
   },
   "dependencies": {
     "@nestjs/common": "^8.2.0",
+    "@nestjs/config": "^1.1.5",
     "@nestjs/core": "^8.2.0",
+    "@nestjs/mongoose": "^9.0.1",
     "@nestjs/platform-express": "^8.2.0",
     "lodash": "^4.17.21",
+    "mongoose": "^6.0.13",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.4.0",
     "shx": "^0.3.3"
