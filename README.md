@@ -145,6 +145,8 @@ import {  Cat, CatSchema  } from './entities/cat.entity';
 export class CatsModule {}
 ```
 
+> 💬 Para más información, podés consultar la documentación oficial de NestJs
+
 <a name="commits"></a>
 
 ## 📤 Commits
