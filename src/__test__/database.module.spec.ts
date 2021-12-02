@@ -23,8 +23,6 @@ describe('DatabaseModule', () => {
   };
 
   beforeEach(async () => {
-    jest.setTimeout(30000);
-
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
@@ -40,11 +38,13 @@ describe('DatabaseModule', () => {
     await app.init();
   });
 
-  afterEach(async () => {
+  afterEach(async (done) => {
     await app.close();
+    done();
   });
 
-  it('should be define', async () => {
+  it('should be define', async (done) => {
     expect(app).toBeDefined();
-  });
+    done();
+  }, 50000);
 });
