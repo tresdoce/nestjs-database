@@ -23,6 +23,8 @@ describe('DatabaseModule', () => {
   };
 
   beforeEach(async () => {
+    jest.setTimeout(30000);
+
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
