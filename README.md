@@ -1,6 +1,6 @@
 <div align="center">
     <img alt="nestjs-database" width="250" height="auto" src="https://camo.githubusercontent.com/c704e8013883cc3a04c7657e656fe30be5b188145d759a6aaff441658c5ffae0/68747470733a2f2f6e6573746a732e636f6d2f696d672f6c6f676f5f746578742e737667" />
-    <h3>NestJS - Health Checks</h3>
+    <h3>NestJS - Mongo Database</h3>
 </div>
 
 <p align="center">
@@ -15,12 +15,11 @@
     <br/>
 </p>
 
-Esta dependencia está pensada para ser utilizada en [NestJs Starter](https://github.com/rudemex/nestjs-starter), o 
+Esta dependencia está pensada para ser utilizada en [NestJs Starter](https://github.com/rudemex/nestjs-starter), o
 cualquier proyecto que utilice una configuración centralizada, siguiendo la misma arquitectura del starter.
 
 ## Glosario
 
-- [🥳 Demo](https://rudemex-nestjs-starter.herokuapp.com/docs)
 - [📝 Requerimientos básicos](#basic-requirements)
 - [🛠️ Instalar dependencia](#install-dependencie)
 - [⚙️ Configuración](#configurations)
@@ -51,21 +50,99 @@ npm install @tresdoce/nestjs-database
 
 ## ⚙️ Configuración
 
-Para excluir los paths `/liveness` y `/readiness` hay que ajustar el `setGlobalPrefix` agregando los options exclude que exporta la dependencia.
+Agregar los datos de conexión a mongo desde el `configuration.ts` utilizando el key `database` que contenga el objeto `mongo` que obtenga los datos desde las variables de entorno.
 
 ```typescript
-// .src/app.module.ts
-import { HealthModule } from '@tresdoce/nestjs-database';
-import { config } from './config';
+// ./src/config/configuration.ts
+import { registerAs } from '@nestjs/config';
+
+export default registerAs('config', () => {
+  return {
+    ...
+    database: {
+      mongo: {
+        connection: process.env.MONGO_CONNECTION || 'mongodb',
+        user: encodeURIComponent(process.env.MONGO_USER),
+        password: encodeURIComponent(process.env.MONGO_PASSWORD),
+        host: process.env.MONGO_HOST,
+        port: parseInt(process.env.MONGO_PORT, 10),
+        dbName: process.env.MONGO_DB_NAME,
+      },
+    },
+    ...
+  };
+});
+```
+
+<details>
+<summary>💬 Para ver en detalle todas las propiedades de la configuración, hace click acá.</summary>
+
+`connection`: Es el protocolo de conexión a mongo.
+
+- Type: `String`
+- Values: `mongodb | mongodb+srv`
+
+`user`: Es el nombre de usuario para conectarse a la base de datos mongo.
+
+- Type: `String`
+
+`password`: Es la contraseña de usuario para conectarse a la base de datos mongo.
+
+- Type: `String`
+
+`host`: Es el servidor para conectarse a la base de datos mongo.
+
+- Type: `String`
+- Values: `localhost | 127.0.0.1 | <host mongo>`
+
+`port`: Es el puerto para conectarse a la base de datos mongo, no es obligatorio ponerlo.
+
+- Type: `Number`
+- Default: `27017`
+
+`dbName`: Es el nombre de la base de datos mongo.
+
+- Type: `String`
+
+</details>
+
+Una vez agregada la configuración, solo basta con importar el módulo en el archivo `app.module.ts`, y el módulo se encargará de obtener la configuración automaticamente.
+
+```typescript
+// ./src/app.module.ts
+import { MongoModule } from '@tresdoce/nestjs-database';
 
 @Module({
-    ...,
+    ...
     imports: [
-        HealthModule.register(config()),
+      ...
+      MongoModule,
+      ...
     ],
-    ...,
+    ...
 })
 export class AppModule {}
+```
+
+Para la inyección de `Schemas` se utiliza la propiedad `forFeature` del módulo enviando las `entity` como un array de objetos.
+
+```typescript
+import {  Cat, CatSchema  } from './entities/cat.entity';
+
+@module({
+  imports:[
+    ...
+    MongoModule.forFeature([
+      {
+        name: Cat.name,
+        schema: CatSchema
+      }
+    ])
+    ...
+  ],
+  ...
+})
+export class CatsModule {}
 ```
 
 <a name="commits"></a>
