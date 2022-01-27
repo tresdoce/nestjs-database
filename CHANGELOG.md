@@ -1,6 +1,19 @@
-<div align="center"><h1>📝 Changelog</h1><p>All changes of this package will be documented in this file.</p></div>
+<div align="center"><h1>📝 Changelog</h1><p>All changes of this project will be documented in this file.</p></div>
 
 ---
+
+### [0.0.3](https://github.com/tresdoce/nestjs-database/compare/v0.0.2...v0.0.3) (2022-01-27)
+
+
+### 👨‍💻 Chores
+
+* **package:** edit package ([1a51b01](https://github.com/tresdoce/nestjs-database/commit/1a51b01fc926b72feb9074dfc6d0468e3650ec2f))
+* update dependencies ([d29ad51](https://github.com/tresdoce/nestjs-database/commit/d29ad5144ed327098e61452338297ffb971896e3))
+
+
+### 📝 Docs
+
+* **readme:** edit readme ([eaf869c](https://github.com/tresdoce/nestjs-database/commit/eaf869c7c4e7adf9c3782dbec3d6e3a3ea161750))
 
 ### 0.0.2 (2021-12-02)
 

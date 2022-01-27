@@ -1,6 +1,6 @@
 {
   "name": "@tresdoce/nestjs-database",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "NestJS database module",
   "author": {
     "name": "Maximiliano \"Mex\" Delgado",
