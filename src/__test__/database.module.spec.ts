@@ -33,18 +33,16 @@ describe('DatabaseModule', () => {
       ],
       providers: [mockMongoToken],
     }).compile();
-    spyOn(console, 'log');
+    //spyOn(console, 'log');
     app = module.createNestApplication();
     await app.init();
   });
 
-  afterEach(async (done) => {
+  afterEach(async () => {
     await app.close();
-    done();
   });
 
-  it('should be define', async (done) => {
+  it('should be define', async () => {
     expect(app).toBeDefined();
-    done();
   }, 50000);
 });
